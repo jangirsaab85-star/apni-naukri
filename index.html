@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Apni Naukri — सरकारी भर्ती और नौकरी की जानकारी के आधिकारिक स्रोत खोजें।">
+<title>Apni Naukri | सरकारी नौकरी सूचना</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172b3a}
+header{background:#12304a;color:white;padding:22px 16px}
+.wrap{max-width:1000px;margin:auto;padding:20px 15px}
+header h1{margin:0 0 7px}
+header p{margin:0;color:#dceaf4}
+.hero,.search,.card{background:white;padding:20px;border-radius:14px;margin-bottom:16px}
+.hero{background:#e4f2ff}
+h2{margin-top:0}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+label{display:block;font-weight:bold;margin-bottom:6px}
+input,select{width:100%;padding:12px;border:1px solid #ccd6e0;border-radius:8px;font-size:16px}
+button,.link{display:inline-block;border:0;border-radius:8px;padding:11px 15px;background:#1769aa;color:white;text-decoration:none;font-weight:bold;cursor:pointer;margin-top:12px}
+.card{border:1px solid #dce5ed}
+.card h3{margin:0 0 8px}
+.card p{color:#536777;line-height:1.5}
+.tag{font-size:13px;background:#e7f3ff;padding:5px 8px;border-radius:20px}
+.note{background:#fff2d7;padding:14px;border-radius:10px;line-height:1.6}
+footer{background:#12304a;color:white;text-align:center;padding:22px}
+small{color:#607484}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Apni Naukri 🇮🇳</h1>
+    <p>सरकारी भर्ती की जानकारी — आधिकारिक स्रोतों से</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h2>अपने लिए नौकरी की जानकारी खोजें</h2>
+    <p>राज्य या नौकरी के स्रोत के आधार पर आधिकारिक भर्ती पोर्टल खोजें। आवेदन करने से पहले मूल नोटिफिकेशन पढ़ें।</p>
+  </section>
+
+  <section class="search">
+    <h2>भर्ती पोर्टल खोजें</h2>
+    <div class="filters">
+      <div>
+        <label for="state">राज्य / क्षेत्र</label>
+        <select id="state">
+          <option value="">सभी क्षेत्र</option>
+          <option value="राजस्थान">राजस्थान</option>
+          <option value="केंद्र">केंद्र सरकार / भारत</option>
+        </select>
+      </div>
+      <div>
+        <label for="type">स्रोत का प्रकार</label>
+        <select id="type">
+          <option value="">सभी प्रकार</option>
+          <option value="भर्ती">भर्ती बोर्ड</option>
+          <option value="नौकरी">नौकरी खोज</option>
+        </select>
+      </div>
+      <div>
+        <label for="keyword">नाम से खोजें</label>
+        <input id="keyword" placeholder="जैसे राजस्थान, NCS">
+      </div>
+    </div>
+    <button onclick="render()">खोजें</button>
+    <button onclick="resetFilters()" style="background:#5d7180">रीसेट</button>
+  </section>
+
+  <div class="note">
+    <b>ज़रूरी सूचना:</b> Apni Naukri एक स्वतंत्र सूचना वेबसाइट है, सरकारी वेबसाइट नहीं। नीचे आधिकारिक स्रोत दिए गए हैं। यह पेज अपने-आप सभी खुली भर्तियाँ, आयु-सीमा या अंतिम तारीख प्राप्त नहीं करता।
+  </div>
+
+  <h2>आधिकारिक स्रोत</h2>
+  <p id="count"></p>
+  <section id="results"></section>
+</main>
+
+<footer>
+  <p><b>Apni Naukri</b></p>
+  <p>भर्ती की शर्तें, पात्रता, फीस और अंतिम तारीख संबंधित विभाग की वेबसाइट से सत्यापित करें।</p>
+  <p><small style="color:#dceaf4">यह किसी सरकारी विभाग से संबद्ध नहीं है।</small></p>
+</footer>
+
+<script>
+const sources = [
+ {
+  name:"Rajasthan Recruitment Portal",
+  state:"राजस्थान",type:"भर्ती",
+  desc:"राजस्थान की विभिन्न सरकारी भर्तियों, आवेदन और भर्ती प्रक्रिया की जानकारी।",
+  url:"https://www.recruitment.rajasthan.gov.in/"
+ },
+ {
+  name:"Rajasthan Staff Selection Board (RSSB)",
+  state:"राजस्थान",type:"भर्ती",
+  desc:"भर्ती विज्ञापन, परिणाम, प्रवेश-पत्र और बोर्ड की सूचनाएँ।",
+  url:"https://rsmssb.rajasthan.gov.in/"
+ },
+ {
+  name:"Rajasthan Public Service Commission (RPSC)",
+  state:"राजस्थान",type:"भर्ती",
+  desc:"राजस्थान लोक सेवा आयोग की भर्ती और परीक्षा संबंधी सूचनाएँ।",
+  url:"https://rpsc.rajasthan.gov.in/"
+ },
+ {
+  name:"National Career Service (NCS)",
+  state:"केंद्र",type:"नौकरी",
+  desc:"भारत सरकार का नौकरी खोज और रोजगार सेवा पोर्टल।",
+  url:"https://www.ncs.gov.in/"
+ },
+ {
+  name:"Staff Selection Commission (SSC)",
+  state:"केंद्र",type:"भर्ती",
+  desc:"केंद्र सरकार की SSC परीक्षाओं और भर्ती सूचनाओं का आधिकारिक स्रोत।",
+  url:"https://ssc.gov.in/"
+ },
+ {
+  name:"Union Public Service Commission (UPSC)",
+  state:"केंद्र",type:"भर्ती",
+  desc:"UPSC की परीक्षाओं, विज्ञापनों और परिणामों का आधिकारिक स्रोत।",
+  url:"https://upsc.gov.in/"
+ }
+];
+
+function render(){
+ const state=document.getElementById("state").value;
+ const type=document.getElementById("type").value;
+ const keyword=document.getElementById("keyword").value.trim().toLowerCase();
+
+ const list=sources.filter(s=>
+  (!state||s.state===state)&&
+  (!type||s.type===type)&&
+  (!keyword||(s.name+" "+s.desc+" "+s.state).toLowerCase().includes(keyword))
+ );
+
+ document.getElementById("count").textContent=list.length+" आधिकारिक स्रोत";
+ document.getElementById("results").innerHTML=list.length
+  ?list.map(s=>`
+   <article class="card">
+    <span class="tag">${s.state==="केंद्र"?"केंद्र सरकार / भारत":s.state}</span>
+    <h3 style="margin-top:12px">${s.name}</h3>
+    <p>${s.desc}</p>
+    <a class="link" href="${s.url}" target="_blank" rel="noopener noreferrer">आधिकारिक वेबसाइट खोलें ↗</a>
+   </article>`).join("")
+  :"<p>कोई स्रोत नहीं मिला। दूसरा शब्द या फ़िल्टर चुनें।";
+}
+function resetFilters(){
+ document.getElementById("state").value="";
+ document.getElementById("type").value="";
+ document.getElementById("keyword").value="";
+ render();
+}
+render();
+</script>
+</body>
+</html>

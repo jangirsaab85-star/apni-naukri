@@ -2,163 +2,217 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Apni Naukri - राजस्थान और भारत की सरकारी भर्ती के आधिकारिक लिंक।">
-  <title>Apni Naukri - सरकारी नौकरी</title>
-  <style>
-    *{box-sizing:border-box}
-    body{margin:0;background:#f3f6fb;color:#172033;font-family:Arial,sans-serif}
-    header{background:#123b70;color:white;padding:25px 15px;text-align:center}
-    header h1{margin:0 0 8px;font-size:30px}
-    header p{margin:0}
-    main{max-width:1000px;margin:22px auto;padding:0 14px}
-    .panel,.job{background:white;border:1px solid #e0e6ef;border-radius:12px;
-      padding:17px;margin-bottom:15px}
-    .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
-    input,select,button{width:100%;padding:12px;border:1px solid #cbd5e1;
-      border-radius:8px;font-size:15px;background:white}
-    button{background:#1456a0;color:white;border:0;cursor:pointer}
-    .job h3{margin:0 0 12px;color:#123b70}
-    .tag{display:inline-block;background:#e7efff;color:#174a91;
-      padding:5px 8px;border-radius:6px;font-size:13px;margin:2px 4px 6px 0}
-    .status{font-size:13px;background:#fff3cd;padding:7px 9px;
-      border-radius:6px;display:inline-block}
-    .muted{color:#596579;font-size:14px;line-height:1.6}
-    a{color:#1456a0;font-weight:bold}
-    footer{text-align:center;padding:22px;color:#596579;font-size:13px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apni Naukri - सरकारी नौकरी खोजें</title>
+<meta name="description" content="राजस्थान और भारत की सरकारी नौकरी, योग्यता, उम्र और क्षेत्र के अनुसार खोजें।">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fb;color:#172033}
+header{background:#123b70;color:white;text-align:center;padding:25px 14px}
+header h1{margin:0 0 8px}
+main{max-width:1050px;margin:22px auto;padding:0 14px}
+.panel,.job,.portal{background:white;border:1px solid #dfe6ef;border-radius:12px;padding:17px;margin-bottom:14px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:11px}
+label{display:block;font-size:14px;font-weight:bold;margin-bottom:6px}
+input,select,button{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}
+button{background:#1456a0;color:white;border:0;cursor:pointer}
+.job h3{margin:0 0 10px;color:#123b70}
+.tag{display:inline-block;background:#e8efff;color:#174a91;padding:5px 8px;border-radius:6px;font-size:13px;margin:2px}
+.note{background:#fff4d6;padding:10px;border-radius:8px;font-size:13px;line-height:1.5}
+.small{font-size:14px;color:#586579;line-height:1.6}
+a{color:#1456a0;font-weight:bold}
+footer{text-align:center;padding:22px;color:#586579;font-size:13px}
+</style>
 </head>
 <body>
 <header>
-  <h1>Apni Naukri</h1>
-  <p>राजस्थान और पूरे भारत की सरकारी भर्ती की जानकारी</p>
+<h1>Apni Naukri</h1>
+<p>अपनी उम्र, राज्य और योग्यता के अनुसार नौकरी खोजें</p>
 </header>
 
 <main>
-  <section class="panel">
-    <h2>🔎 नौकरी खोजें</h2>
-    <div class="filters">
-      <input id="search" placeholder="पोस्ट या विभाग खोजें">
-      <select id="region">
-        <option value="">सभी क्षेत्र</option>
-        <option value="राजस्थान">राजस्थान</option>
-        <option value="केंद्र सरकार">केंद्र सरकार</option>
-      </select>
-      <select id="qualification">
-        <option value="">सभी योग्यताएँ</option>
-        <option value="10वीं">10वीं</option>
-        <option value="12वीं">12वीं</option>
-        <option value="ITI">ITI</option>
-        <option value="स्नातक">स्नातक</option>
-        <option value="तकनीकी">तकनीकी योग्यता</option>
-        <option value="जाँचें">योग्यता आधिकारिक नोटिस में जाँचें</option>
-      </select>
-      <button onclick="renderJobs()">खोजें</button>
-    </div>
-  </section>
+<section class="panel">
+<h2>🔎 नौकरी खोजें</h2>
+<div class="filters">
+  <div>
+    <label for="age">आपकी उम्र (वर्ष)</label>
+    <input id="age" type="number" min="14" max="100" placeholder="जैसे 18">
+  </div>
+  <div>
+    <label for="place">राज्य / क्षेत्र</label>
+    <select id="place">
+      <option value="">सभी भारत</option>
+      <option>राजस्थान</option>
+      <option>केंद्र सरकार</option>
+      <option>उत्तर प्रदेश</option>
+      <option>हरियाणा</option>
+      <option>दिल्ली</option>
+      <option>अन्य राज्य</option>
+    </select>
+  </div>
+  <div>
+    <label for="qualification">योग्यता</label>
+    <select id="qualification">
+      <option value="">सभी योग्यताएँ</option>
+      <option>10वीं</option>
+      <option>12वीं</option>
+      <option>ITI</option>
+      <option>स्नातक</option>
+      <option>तकनीकी योग्यता</option>
+    </select>
+  </div>
+  <div>
+    <label for="field">नौकरी का क्षेत्र</label>
+    <select id="field">
+      <option value="">सभी क्षेत्र</option>
+      <option>कार्यालय / क्लर्क</option>
+      <option>रेलवे</option>
+      <option>पुलिस / सुरक्षा</option>
+      <option>तकनीकी</option>
+      <option>सफाई कर्मचारी</option>
+      <option>बैंक</option>
+      <option>शिक्षा</option>
+      <option>अन्य</option>
+    </select>
+  </div>
+  <div>
+    <label for="search">पोस्ट / विभाग का नाम</label>
+    <input id="search" placeholder="जैसे SSC, रेलवे">
+  </div>
+  <div style="align-self:end">
+    <button id="searchBtn">नौकरी खोजें</button>
+  </div>
+</div>
+<p class="small">उम्र दर्ज करने से अपने-आप पात्रता तय नहीं होती। हर भर्ती की न्यूनतम/अधिकतम आयु और छूट आधिकारिक नोटिस में जाँचें।</p>
+</section>
 
-  <p class="muted">
-    नीचे आधिकारिक भर्ती पोर्टल और नोटिस के लिंक दिए गए हैं।
-    आवेदन करने से पहले विज्ञापन, योग्यता, फीस और अंतिम तारीख जाँचें।
-  </p>
-  <section id="jobs"></section>
+<h2>📋 भर्ती और नौकरी के नोटिस</h2>
+<p class="small">नीचे आधिकारिक भर्ती स्रोतों के नोटिस दिए गए हैं। आवेदन खुला है या नहीं, इसकी पुष्टि संबंधित पोर्टल पर करें।</p>
+<div id="jobs"></div>
 
-  <section class="panel">
-    <h2>📊 वेबसाइट के Visitors</h2>
-    <p class="muted">
-      Visitor tracking के लिए Cloudflare से मिला अपना असली JavaScript
-      snippet नीचे दिए स्थान पर लगाएँ। Token की जगह अपना वास्तविक token रखें।
-    </p>
-  </section>
+<h2>🌐 आधिकारिक भर्ती पोर्टल</h2>
+<div class="portal">
+  <h3>राजस्थान भर्ती पोर्टल</h3>
+  <p class="small">राजस्थान सरकार की विभिन्न भर्ती सूचनाएँ।</p>
+  <a href="https://www.recruitment.rajasthan.gov.in/" target="_blank" rel="noopener">पोर्टल खोलें ↗</a>
+</div>
+<div class="portal">
+  <h3>RSSB / राजस्थान चयन बोर्ड</h3>
+  <p class="small">राजस्थान की चयन बोर्ड भर्तियाँ और विज्ञापन।</p>
+  <a href="https://rssb.rajasthan.gov.in/" target="_blank" rel="noopener">पोर्टल खोलें ↗</a>
+</div>
+<div class="portal">
+  <h3>SSC — केंद्र सरकार</h3>
+  <p class="small">केंद्र सरकार की विभिन्न पदों की भर्ती सूचनाएँ।</p>
+  <a href="https://ssc.gov.in/" target="_blank" rel="noopener">पोर्टल खोलें ↗</a>
+</div>
+<div class="portal">
+  <h3>Railway Recruitment Boards</h3>
+  <p class="small">रेलवे भर्ती के लिए आधिकारिक RRB वेबसाइटों की जानकारी।</p>
+  <a href="https://www.rrbcdg.gov.in/" target="_blank" rel="noopener">RRB पोर्टल खोलें ↗</a>
+</div>
+<div class="portal">
+  <h3>रोजगार समाचार</h3>
+  <p class="small">केंद्र और अन्य सरकारी विभागों के रोजगार विज्ञापन।</p>
+  <a href="https://www.employmentnews.gov.in/" target="_blank" rel="noopener">पोर्टल खोलें ↗</a>
+</div>
 </main>
 
 <footer>
-  Apni Naukri एक स्वतंत्र सूचना वेबसाइट है, सरकारी वेबसाइट नहीं।
-  भर्ती की जानकारी के लिए संबंधित विभाग का नोटिस ही अंतिम मानें।
+Apni Naukri एक स्वतंत्र जानकारी वेबसाइट है, सरकारी वेबसाइट नहीं।
+आवेदन से पहले आधिकारिक विज्ञापन पढ़ें।
 </footer>
 
 <script>
 const jobs = [
-  {
-    title: "Contractual Safai Karamchari - 2026",
-    region: "राजस्थान",
-    qualification: "जाँचें",
-    date: "28 अक्टूबर 2026 — आधिकारिक पोर्टल पर पुनः पुष्टि करें",
-    status: "आवेदन की स्थिति आधिकारिक पोर्टल पर जाँचें",
-    source: "Rajasthan Recruitment Portal",
-    url: "https://www.recruitment.rajasthan.gov.in/"
-  },
-  {
-    title: "Direct Joint Recruitment of JEN - 2026",
-    region: "राजस्थान",
-    qualification: "तकनीकी",
-    date: "आधिकारिक विज्ञापन में देखें",
-    status: "आवेदन की स्थिति और तारीख जाँचें",
-    source: "Rajasthan Staff Selection Board",
-    url: "https://rssb.rajasthan.gov.in/"
-  },
-  {
-    title: "SSC — केंद्रीय सरकारी भर्ती नोटिस",
-    region: "केंद्र सरकार",
-    qualification: "जाँचें",
-    date: "हर भर्ती की अलग तारीख होती है",
-    status: "यह भर्ती सूची का आधिकारिक पोर्टल है; विशिष्ट पद चुनें",
-    source: "Staff Selection Commission",
-    url: "https://ssc.gov.in/"
-  }
+ {
+  title:"Contractual Safai Karamchari - 2026",
+  region:"राजस्थान",
+  field:"सफाई कर्मचारी",
+  qualifications:["10वीं"],
+  ageMin:null,ageMax:null,
+  source:"Rajasthan Recruitment Portal",
+  url:"https://www.recruitment.rajasthan.gov.in/",
+  note:"आवेदन की स्थिति, आयु सीमा और योग्यता आधिकारिक विज्ञापन में जाँचें।"
+ },
+ {
+  title:"Direct Joint Recruitment of JEN - 2026",
+  region:"राजस्थान",
+  field:"तकनीकी",
+  qualifications:["तकनीकी योग्यता","ITI"],
+  ageMin:null,ageMax:null,
+  source:"RSSB",
+  url:"https://rssb.rajasthan.gov.in/",
+  note:"तकनीकी पात्रता, आयु सीमा और आवेदन की स्थिति आधिकारिक विज्ञापन में जाँचें।"
+ },
+ {
+  title:"SSC की केंद्रीय भर्ती सूचनाएँ",
+  region:"केंद्र सरकार",
+  field:"कार्यालय / क्लर्क",
+  qualifications:["10वीं","12वीं","स्नातक"],
+  ageMin:null,ageMax:null,
+  source:"Staff Selection Commission",
+  url:"https://ssc.gov.in/",
+  note:"यह भर्ती पोर्टल है; अलग-अलग पदों की योग्यता और तारीख अलग होती है।"
+ },
+ {
+  title:"Railway भर्ती सूचनाएँ",
+  region:"केंद्र सरकार",
+  field:"रेलवे",
+  qualifications:["10वीं","12वीं","ITI","स्नातक"],
+  ageMin:null,ageMax:null,
+  source:"Railway Recruitment Board",
+  url:"https://www.rrbcdg.gov.in/",
+  note:"यह आधिकारिक भर्ती स्रोत है, किसी एक खुली vacancy की पुष्टि नहीं।"
+ }
 ];
 
-function esc(value){
-  return String(value).replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",
-    '"':"&quot;","'":"&#39;"
-  }[c]));
-}
+const $ = id => document.getElementById(id);
+const esc = value => String(value).replace(/[&<>"']/g, c => ({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
 
 function renderJobs(){
-  const q = document.getElementById("search").value.trim().toLowerCase();
-  const region = document.getElementById("region").value;
-  const qualification = document.getElementById("qualification").value;
+ const age = $("age").value === "" ? null : Number($("age").value);
+ const place = $("place").value;
+ const qual = $("qualification").value;
+ const field = $("field").value;
+ const query = $("search").value.trim().toLowerCase();
 
-  const filtered = jobs.filter(j =>
-    (j.title.toLowerCase().includes(q) ||
-     j.source.toLowerCase().includes(q)) &&
-    (!region || j.region === region) &&
-    (!qualification || j.qualification === qualification ||
-      j.qualification === "जाँचें")
-  );
+ const result = jobs.filter(j => {
+   const textMatch = !query ||
+     (j.title + " " + j.source).toLowerCase().includes(query);
+   const placeMatch = !place || j.region === place ||
+     place === "अन्य राज्य" && j.region !== "राजस्थान" && j.region !== "केंद्र सरकार";
+   const qualMatch = !qual || j.qualifications.includes(qual);
+   const fieldMatch = !field || j.field === field ||
+     field === "तकनीकी" && j.field === "तकनीकी";
+   // जब तक आधिकारिक आयु सीमा दर्ज नहीं है, उम्र से भर्ती को न हटाएँ।
+   const ageMatch = age === null || age >= 14;
+   return textMatch && placeMatch && qualMatch && fieldMatch && ageMatch;
+ });
 
-  const container = document.getElementById("jobs");
-  if(!filtered.length){
-    container.innerHTML = '<div class="panel">इस फ़िल्टर में कोई नोटिस नहीं मिला। आधिकारिक पोर्टल भी देखें।</div>';
-    return;
-  }
-
-  container.innerHTML = filtered.map(j => `
-    <article class="job">
-      <span class="tag">${esc(j.region)}</span>
-      <span class="tag">योग्यता: ${esc(j.qualification)}</span>
-      <h3>${esc(j.title)}</h3>
-      <p><b>तारीख:</b> ${esc(j.date)}</p>
-      <p class="status">${esc(j.status)}</p>
-      <p class="muted">आधिकारिक स्रोत: ${esc(j.source)}</p>
-      <a href="${j.url}" target="_blank" rel="noopener noreferrer">
-        आधिकारिक वेबसाइट / नोटिस देखें ↗
-      </a>
-    </article>
-  `).join("");
+ $("jobs").innerHTML = result.length ? result.map(j => `
+  <article class="job">
+   <span class="tag">${esc(j.region)}</span>
+   <span class="tag">${esc(j.field)}</span>
+   <h3>${esc(j.title)}</h3>
+   <p><b>योग्यता:</b> ${j.qualifications.map(esc).join(", ")}</p>
+   <p class="note">${esc(j.note)}</p>
+   <p class="small">आधिकारिक स्रोत: ${esc(j.source)}</p>
+   <a href="${j.url}" target="_blank" rel="noopener">आधिकारिक नोटिस / पोर्टल देखें ↗</a>
+  </article>
+ `).join("") : '<div class="panel">इस खोज में कोई परिणाम नहीं मिला। फ़िल्टर बदलकर देखें।</div>';
 }
-
+$("searchBtn").addEventListener("click",renderJobs);
+["age","place","qualification","field","search"].forEach(id=>{
+ $(id).addEventListener("change",renderJobs);
+ $(id).addEventListener("input",renderJobs);
+});
 renderJobs();
-document.getElementById("search").addEventListener("input", renderJobs);
-document.getElementById("region").addEventListener("change", renderJobs);
-document.getElementById("qualification").addEventListener("change", renderJobs);
 </script>
 
-<!-- CLOUDFLARE TRACKING:
-     Cloudflare dashboard से मिला असली snippet यहाँ paste करें.
-     Placeholder token इस्तेमाल न करें.
--->
+<!-- Cloudflare tracking के लिए अपना असली snippet यहाँ </body> से पहले लगाएँ. -->
 </body>
 </html>
